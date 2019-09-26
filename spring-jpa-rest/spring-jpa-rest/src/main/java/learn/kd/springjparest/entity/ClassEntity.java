@@ -23,14 +23,15 @@ public class ClassEntity {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "classs", cascade = CascadeType.ALL, targetEntity = StudentEntity.class)
-    private List<StudentEntity> students = new ArrayList<>();
+    @OneToMany(mappedBy = "classs", cascade = CascadeType.ALL)
+    private List<StudentEntity> students;
 
-    @OneToMany(mappedBy = "classs", cascade = CascadeType.ALL, targetEntity = TeacherEntity.class)
-    private List<TeacherEntity> teachers = new ArrayList<>();
+    @OneToMany(mappedBy = "classs", cascade = CascadeType.ALL)
+    private List<TeacherEntity> teachers;
 
     public ClassEntity() {
-       
+        students = new ArrayList<>();
+        teachers = new ArrayList<>();
     }
 
     public ClassEntity(String name) {

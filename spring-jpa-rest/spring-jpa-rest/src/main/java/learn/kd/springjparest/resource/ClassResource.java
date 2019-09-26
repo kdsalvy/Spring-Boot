@@ -37,10 +37,10 @@ public class ClassResource {
         TeacherEntity t3 = new TeacherEntity("AHI");
         TeacherEntity t4 = new TeacherEntity("AIJ");
 
-        s1.setClasss(c1);
-        s2.setClasss(c1);
-        s3.setClasss(c1);
-        s4.setClasss(c1);
+//        s1.setClasss(c1);
+//        s2.setClasss(c1);
+//        s3.setClasss(c1);
+//        s4.setClasss(c1);
 
         t1.setClasss(c1);
         t2.setClasss(c1);

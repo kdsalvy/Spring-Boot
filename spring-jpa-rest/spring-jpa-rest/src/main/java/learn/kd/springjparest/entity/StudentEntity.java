@@ -33,5 +33,5 @@ public class StudentEntity {
     public StudentEntity(String name) {
         this.name = name;
     }
-    
+
 }
