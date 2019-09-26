@@ -25,17 +25,17 @@ public class ClassResource {
 
     @PostMapping
     public ClassEntity createClasses() {
-        ClassEntity c1 = new ClassEntity(5L, "III");
+        ClassEntity c1 = new ClassEntity("III");
 
-        StudentEntity s1 = new StudentEntity(7L, "G");
-        StudentEntity s2 = new StudentEntity(8L, "H");
-        StudentEntity s3 = new StudentEntity(9L, "I");
-        StudentEntity s4 = new StudentEntity(10L, "J");
+        StudentEntity s1 = new StudentEntity("G");
+        StudentEntity s2 = new StudentEntity("H");
+        StudentEntity s3 = new StudentEntity("I");
+        StudentEntity s4 = new StudentEntity("J");
 
-        TeacherEntity t1 = new TeacherEntity(5L, "AFG");
-        TeacherEntity t2 = new TeacherEntity(6L, "AGH");
-        TeacherEntity t3 = new TeacherEntity(7L, "AHI");
-        TeacherEntity t4 = new TeacherEntity(8L, "AIJ");
+        TeacherEntity t1 = new TeacherEntity("AFG");
+        TeacherEntity t2 = new TeacherEntity("AGH");
+        TeacherEntity t3 = new TeacherEntity("AHI");
+        TeacherEntity t4 = new TeacherEntity("AIJ");
 
         s1.setClasss(c1);
         s2.setClasss(c1);

@@ -24,18 +24,17 @@ public class ClassEntity {
     private String name;
 
     @OneToMany(mappedBy = "classs", cascade = CascadeType.ALL, targetEntity = StudentEntity.class)
-    private List<StudentEntity> students = new ArrayList<>();;
+    private List<StudentEntity> students = new ArrayList<>();
 
     @OneToMany(mappedBy = "classs", cascade = CascadeType.ALL, targetEntity = TeacherEntity.class)
-    private List<TeacherEntity> teachers = new ArrayList<>();;
+    private List<TeacherEntity> teachers = new ArrayList<>();
 
     public ClassEntity() {
        
     }
 
-    public ClassEntity(Long id, String name) {
+    public ClassEntity(String name) {
         this();
-        this.id = id;
         this.name = name;
     }
 

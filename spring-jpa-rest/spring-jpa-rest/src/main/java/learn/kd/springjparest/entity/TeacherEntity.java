@@ -27,11 +27,10 @@ public class TeacherEntity {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "class_id", insertable = false, updatable = false, nullable = false)
+    @JoinColumn(name = "class_id")
     private ClassEntity classs;
 
-    public TeacherEntity(Long id, String name) {
-        this.id = id;
+    public TeacherEntity(String name) {
         this.name = name;
     }
 
