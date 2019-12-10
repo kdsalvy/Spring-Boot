@@ -1,8 +1,10 @@
 package mini.project.spring.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +15,7 @@ import mini.project.spring.cloud.service.AWSService;
 @RestController
 @RequestMapping(path = "aws")
 public class AWSManager {
-    
+
     @Autowired
     private AWSService service;
 
@@ -23,12 +25,12 @@ public class AWSManager {
     }
 
     @GetMapping(path = "s3")
-    public String downloadFileFromS3() {
-        try {
-            return service.downloadFileFromS3();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public String downloadFileFromS3() throws IOException {
+        return service.downloadFileFromS3();
+    }
+
+    @GetMapping(path = "s3/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> listFilesInBucket() throws IOException {
+        return service.listFilesInBucket();
     }
 }
