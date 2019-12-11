@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
@@ -63,27 +66,32 @@ public class AWSServiceImpl implements AWSService {
 
     private List<String> getAllFileContents() throws IOException {
         ListObjectsV2Result result = amazonS3.listObjectsV2("kd-spc-bucket");
-        List<S3ObjectSummary> s3ObjectSummaryList = result.getObjectSummaries();
         List<String> contentList = new ArrayList<>();
+
+        Predicate<S3ObjectSummary> files = objectSummary -> {
+            ObjectMetadata metadata = amazonS3.getObjectMetadata(objectSummary.getBucketName(), objectSummary.getKey());
+            return !metadata.getContentType()
+                .equals("application/x-directory");
+        };
+        List<S3ObjectSummary> s3ObjectSummaryList = result.getObjectSummaries()
+            .stream()
+            .filter(files)
+            .collect(Collectors.toList());
 
         for (S3ObjectSummary objectSummary : s3ObjectSummaryList) {
             S3Object object = amazonS3.getObject(objectSummary.getBucketName(), objectSummary.getKey());
-            if (!object.getObjectMetadata()
-                .getContentType()
-                .equals("application/x-directory")) {
-                logger.info(objectSummary.getKey());
-                File tempFile = new File("temp.txt");
-                try (S3ObjectInputStream inputStream = object.getObjectContent(); FileOutputStream fos = new FileOutputStream(tempFile)) {
-                    byte[] read_buf = new byte[1024];
-                    int read_len = 0;
-                    while ((read_len = inputStream.read(read_buf)) > 0) {
-                        fos.write(read_buf, 0, read_len);
-                    }
-                    byte[] bytes = Files.readAllBytes(tempFile.toPath());
-                    contentList.add(new String(bytes));
+            logger.info(objectSummary.getKey());
+            File tempFile = new File("temp.txt");
+            try (S3ObjectInputStream inputStream = object.getObjectContent(); FileOutputStream fos = new FileOutputStream(tempFile)) {
+                byte[] read_buf = new byte[1024];
+                int read_len = 0;
+                while ((read_len = inputStream.read(read_buf)) > 0) {
+                    fos.write(read_buf, 0, read_len);
                 }
-                tempFile.delete();
+                byte[] bytes = Files.readAllBytes(tempFile.toPath());
+                contentList.add(new String(bytes));
             }
+            tempFile.delete();
         }
         return contentList;
     }
