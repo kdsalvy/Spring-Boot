@@ -30,7 +30,7 @@ import mini.project.spring.cloud.service.AWSService;
 @Service
 public class AWSServiceImpl implements AWSService {
 
-    Logger logger = LoggerFactory.getLogger(AWSServiceImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(AWSServiceImpl.class);
 
     @Autowired
     private ResourceLoader resourceLoader;
@@ -70,8 +70,10 @@ public class AWSServiceImpl implements AWSService {
 
         Predicate<S3ObjectSummary> files = objectSummary -> {
             ObjectMetadata metadata = amazonS3.getObjectMetadata(objectSummary.getBucketName(), objectSummary.getKey());
+            String[] keyPartsArray = objectSummary.getKey()
+                .split("/");
             return !metadata.getContentType()
-                .equals("application/x-directory");
+                .equals("application/x-directory") && keyPartsArray[keyPartsArray.length - 1].matches("test[a-zA-Z]{0,}.txt");
         };
         List<S3ObjectSummary> s3ObjectSummaryList = result.getObjectSummaries()
             .stream()
@@ -94,6 +96,11 @@ public class AWSServiceImpl implements AWSService {
             tempFile.delete();
         }
         return contentList;
+    }
+
+    @Override
+    public void deleteFileInBucket() {
+        amazonS3.deleteObject("kd-spc-bucket", "A/test.txt");
     }
 
 }

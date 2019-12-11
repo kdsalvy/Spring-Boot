@@ -10,4 +10,6 @@ public interface AWSService {
     public String downloadFileFromS3() throws IOException;
 
     public List<String> listFilesInBucket() throws IOException;
+
+    public void deleteFileInBucket();
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,5 +33,10 @@ public class AWSManager {
     @GetMapping(path = "s3/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> listFilesInBucket() throws IOException {
         return service.listFilesInBucket();
+    }
+    
+    @DeleteMapping(path = "s3")
+    public void deleteFileInBucket() {
+        service.deleteFileInBucket();
     }
 }
