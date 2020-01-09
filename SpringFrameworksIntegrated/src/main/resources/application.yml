@@ -1,0 +1,50 @@
+spring:
+  profiles:
+    active: local
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://localhost:3306/library 
+    username: root
+    password: admin
+#    driver-class-name: org.h2.Driver
+    initialization-mode: never
+  h2:
+    console:
+      enabled: true
+      path: /h2/console
+  ldap:
+    embedded:
+      ldif: classpath:ldap-server.ldif
+      base-dn: dc=springframework,dc=org 
+      port: 8389
+  jackson:
+    default-property-inclusion: NON_NULL
+  application:
+    name: SpringPOC
+    
+server:
+  port: 8080    
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health, info, metrics, scheduledtasks, env, prometheus
+        
+library:
+  management:
+    system:
+      ldap-server:
+        url: ldap://localhost:8389/dc=springframework,dc=org
+      user:
+        dn:
+          patterns: uid={0},ou=people
+      search:
+        base:
+          group: ou=groups
+      attribute:
+        password: userPassword

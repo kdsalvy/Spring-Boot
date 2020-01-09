@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "library.management.system.ldap-server.url",
+    "type": "java.lang.String",
+    "description": "A description for 'library.management.system.ldap-server.url'"
+  },
+  {
+    "name": "library.management.system.user.dn.patterns",
+    "type": "java.lang.String",
+    "description": "A description for 'library.management.system.user.dn.patterns'"
+  },
+  {
+    "name": "library.management.system.search.base.group",
+    "type": "java.lang.String",
+    "description": "A description for 'library.management.system.search.base.group'"
+  },
+  {
+    "name": "library.management.system.attribute.password",
+    "type": "java.lang.String",
+    "description": "A description for 'library.management.system.attribute.password'"
+  }
+]}

@@ -34,14 +34,14 @@ public class AWSServiceImpl implements AWSService {
 
     @Autowired
     private ResourceLoader resourceLoader;
-
+    
     @Autowired
     private AmazonS3 amazonS3;
 
     @Override
     public void uploadFileToS3() {
-        // TODO Auto-generated method stub
-
+        File file = new File("temp.txt");
+        amazonS3.putObject("kd-spc-demo", "temp.txt", file);
     }
 
     @Override
@@ -65,9 +65,11 @@ public class AWSServiceImpl implements AWSService {
     }
 
     private List<String> getAllFileContents() throws IOException {
+        logger.info("List Objects from bucket");
         ListObjectsV2Result result = amazonS3.listObjectsV2("kd-spc-bucket");
         List<String> contentList = new ArrayList<>();
 
+        logger.info("Filter specific objects");
         Predicate<S3ObjectSummary> files = objectSummary -> {
             ObjectMetadata metadata = amazonS3.getObjectMetadata(objectSummary.getBucketName(), objectSummary.getKey());
             String[] keyPartsArray = objectSummary.getKey()
@@ -81,9 +83,11 @@ public class AWSServiceImpl implements AWSService {
             .collect(Collectors.toList());
 
         for (S3ObjectSummary objectSummary : s3ObjectSummaryList) {
+            logger.info("Get Object");
             S3Object object = amazonS3.getObject(objectSummary.getBucketName(), objectSummary.getKey());
             logger.info(objectSummary.getKey());
             File tempFile = new File("temp.txt");
+            logger.info("Read Object");
             try (S3ObjectInputStream inputStream = object.getObjectContent(); FileOutputStream fos = new FileOutputStream(tempFile)) {
                 byte[] read_buf = new byte[1024];
                 int read_len = 0;
@@ -100,7 +104,7 @@ public class AWSServiceImpl implements AWSService {
 
     @Override
     public void deleteFileInBucket() {
-        amazonS3.deleteObject("kd-spc-bucket", "A/test.txt");
+        amazonS3.deleteObject("kd-spc-bucket", "A/E/test.txt");
     }
 
 }
