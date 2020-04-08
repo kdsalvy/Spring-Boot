@@ -43,7 +43,7 @@ public class AWSServiceImpl implements AWSService {
     private ResourceLoader resourceLoader;
 
     @Autowired
-    AWSSecretsManagerClient asmClient;
+    private AWSSecretsManagerClient asmClient;
 
     @Autowired
     private AmazonS3 amazonS3;
@@ -131,7 +131,7 @@ public class AWSServiceImpl implements AWSService {
             Object object = parser.parse();
             if(object instanceof LinkedHashMap)
                 secretMap = (LinkedHashMap<?, ?>)object ;
-            return (String) secretMap.get("key1");
+            return (String) secretMap.get(key);
         } catch (ParseException e) {
             e.printStackTrace();
         }
