@@ -18,7 +18,6 @@ import org.apache.tomcat.util.json.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -127,9 +126,11 @@ public class AWSServiceImpl implements AWSService {
         String jsonString = result.getSecretString();
 
         JSONParser parser = new JSONParser(jsonString);
-        Map<String, String> secretMap = null;
+        Map<?, ?> secretMap = null;
         try {
-            secretMap = (LinkedHashMap<String, String>) parser.parse();
+            Object object = parser.parse();
+            if(object instanceof LinkedHashMap)
+                secretMap = (LinkedHashMap<?, ?>)object ;
             return (String) secretMap.get("key1");
         } catch (ParseException e) {
             e.printStackTrace();
