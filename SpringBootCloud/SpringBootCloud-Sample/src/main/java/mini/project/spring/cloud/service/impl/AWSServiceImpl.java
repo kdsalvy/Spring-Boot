@@ -7,13 +7,18 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.apache.tomcat.util.json.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -24,6 +29,9 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.amazonaws.services.secretsmanager.AWSSecretsManagerClient;
+import com.amazonaws.services.secretsmanager.model.GetSecretValueRequest;
+import com.amazonaws.services.secretsmanager.model.GetSecretValueResult;
 
 import mini.project.spring.cloud.service.AWSService;
 
@@ -34,7 +42,10 @@ public class AWSServiceImpl implements AWSService {
 
     @Autowired
     private ResourceLoader resourceLoader;
-    
+
+    @Autowired
+    AWSSecretsManagerClient asmClient;
+
     @Autowired
     private AmazonS3 amazonS3;
 
@@ -105,6 +116,25 @@ public class AWSServiceImpl implements AWSService {
     @Override
     public void deleteFileInBucket() {
         amazonS3.deleteObject("kd-spc-bucket", "A/E/test.txt");
+    }
+
+    @Override
+    public String fetchSecretValue(String key) {
+        GetSecretValueRequest request = new GetSecretValueRequest();
+        request.setSecretId("/sample/secrets");
+
+        GetSecretValueResult result = asmClient.getSecretValue(request);
+        String jsonString = result.getSecretString();
+
+        JSONParser parser = new JSONParser(jsonString);
+        Map<String, String> secretMap = null;
+        try {
+            secretMap = (LinkedHashMap<String, String>) parser.parse();
+            return (String) secretMap.get("key1");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

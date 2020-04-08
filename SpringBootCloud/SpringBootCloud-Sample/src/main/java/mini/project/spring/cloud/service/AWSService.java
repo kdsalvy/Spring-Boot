@@ -12,4 +12,6 @@ public interface AWSService {
     public List<String> listFilesInBucket() throws IOException;
 
     public void deleteFileInBucket();
+
+    public String fetchSecretValue(String key);
 }
