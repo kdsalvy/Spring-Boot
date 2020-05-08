@@ -1,0 +1,1 @@
+ALTER table users add address varchar(250)
