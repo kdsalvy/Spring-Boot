@@ -55,3 +55,15 @@ security:
     resource:
       userInfoUri: https://graph.facebook.com/me
 ```
+
+### Use Spring SSL
+
+```
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:keystore/kd.p12
+    key-store-password: key@123
+    keyStoreType: PKCS12
+    keyAlias: kd
+``` 
