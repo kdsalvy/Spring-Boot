@@ -1,0 +1,29 @@
+kd:
+  app:
+    security:
+      config: in-mem # oauth(default), ldap, in-mem, jdbc, jpa, jwt
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  
+  ldap:
+    embedded:
+      port: 8389
+      ldif: classpath:ldap-data.ldif
+      base-dn: dc=springframework,dc=org
+      
+security:
+  oauth2:
+    client:
+      clientId: {facebook app account id}
+      clientSecret: {facebook app account secret}
+      accessTokenUri: https://graph.facebook.com/oauth/access_token
+      userAuthorizationUri: https://www.facebook.com/dialog/oauth
+      tokenName: oauth_token
+      authenticationScheme: query
+      clientAuthenticationScheme: form
+    resource:
+      userInfoUri: https://graph.facebook.com/me
