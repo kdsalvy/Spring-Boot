@@ -41,6 +41,7 @@ spring:
 
 Below is the OAuth Configuration to login by authenticating using Facebook.
 
+```
 security:
   oauth2:
     client:
@@ -53,3 +54,4 @@ security:
       clientAuthenticationScheme: form
     resource:
       userInfoUri: https://graph.facebook.com/me
+```
