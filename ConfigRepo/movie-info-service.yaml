@@ -1,0 +1,12 @@
+server:
+  port: 8082
+  
+spring:
+  application:
+    name: movie-info-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+    
+tmdb:
+  api-key: 9d8e6afa9a89187b3eac0ab568187744
