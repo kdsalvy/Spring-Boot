@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: movie-info-service
+    
+tmdb:
+  api-key: {api-key}
