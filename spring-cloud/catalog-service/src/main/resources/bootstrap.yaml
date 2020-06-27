@@ -1,0 +1,7 @@
+spring:  
+  cloud:
+    config:
+      discovery:
+        serviceId: config-server
+        enabled: true
+      uri: http://config-server

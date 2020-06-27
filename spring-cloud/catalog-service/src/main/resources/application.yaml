@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: catalog-service
+    config:
+      uri: http://localhost:9000
+     
+movie-info-service:
+  ribbon:
+    eureka:
+      enabled: true
+    ServerListRefreshInterval: 1000
+    MaxAutoRetries: 5
+    MaxAutoRetriesNextServer: 0
+    retryableStatusCodes: 503, 502, 500
+    OkToRetryOnAllOperations: true
+    
+ratings-data-service:
+  ribbon:
+    eureka:
+      enabled: true
+    ServerListRefreshInterval: 1000
+    MaxAutoRetries: 5
+    MaxAutoRetriesNextServer: 2
+    retryableStatusCodes: 503, 502, 500
+    OkToRetryOnAllOperations: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 30
+    leaseExpirationDurationInSeconds: 30
+  client:
+    healthcheck:
+      enabled: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
