@@ -3,4 +3,8 @@ spring:
     name: movie-info-service
     
 tmdb:
-  api-key: {api-key}
+  api-key: 9d8e6afa9a89187b3eac0ab568187744
+  
+logging:
+  root:
+    level: DEBUG
