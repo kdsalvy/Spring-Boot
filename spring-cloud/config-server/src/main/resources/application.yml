@@ -3,10 +3,12 @@ spring:
     name: config-server
   cloud:
     config:
-      allowOverride: true # Allow override config by local properties of the application, enabled to check client side load balancing
-      overrideNone: true
+      allowOverride: true
+      overrideNone: true    
+      enabled: false
       server:
         git:
+          timeout: 10
           uri: https://github.com/kdsalvy/Spring-Boot.git
           search-paths:
             - ConfigRepo
