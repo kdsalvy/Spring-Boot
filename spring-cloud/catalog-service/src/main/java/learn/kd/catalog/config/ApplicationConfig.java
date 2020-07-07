@@ -1,51 +1,33 @@
 package learn.kd.catalog.config;
 
-import java.util.Arrays;
-
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.client.loadbalancer.LoadBalancedRetryFactory;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.netflix.ribbon.RibbonClients;
-import org.springframework.context.annotation.Bean;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.retry.annotation.EnableRetry;
-import org.springframework.retry.backoff.BackOffPolicy;
-import org.springframework.retry.backoff.ExponentialRandomBackOffPolicy;
-import org.springframework.web.client.RestTemplate;
 
-import learn.kd.catalog.interceptor.RestCallInfoIntercepter;
-
-@Configuration
+@EnableFeignClients(basePackages = {"learn.kd.catalog.service"})
 @EnableEurekaClient
+@EnableRetry
 @EnableCircuitBreaker
-@EnableRetry(proxyTargetClass = true)
 @EnableHystrixDashboard
-@RibbonClients(value = { 
-        @RibbonClient(name = "movie-info-service"), 
-        @RibbonClient(name = "ratings-data-service") 
-        }, defaultConfiguration = { 
-                LoadBalancerConfig.class 
-                })
+@RibbonClients(value = { @RibbonClient(name = "movie-info-service"), @RibbonClient(name = "ratings-data-service") }, defaultConfiguration = LoadBalancerConfig.class)
+@Configuration
 public class ApplicationConfig {
 
-    @Bean
-    @LoadBalanced
-    public RestTemplate getRestTemplate() {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setInterceptors(Arrays.asList(new RestCallInfoIntercepter()));
-        return restTemplate;
-    }
+//    Not Required as we are using Feign now
+//    @Primary
+//    @Bean
+//    @LoadBalanced
+//    public RestTemplate getRestTemplate(RestTemplateBuilder restTemplateBuilder) {
+//        HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+//        httpRequestFactory.setConnectionRequestTimeout(5000);
+//
+//        RestTemplate restTemplate = new RestTemplate(httpRequestFactory);
+//        return restTemplate;
+//    }
 
-    @Bean
-    public LoadBalancedRetryFactory retryFactory() {
-        return new LoadBalancedRetryFactory() {
-            @Override
-            public BackOffPolicy createBackOffPolicy(String service) {
-                return new ExponentialRandomBackOffPolicy();
-            }
-        };
-    }
 }

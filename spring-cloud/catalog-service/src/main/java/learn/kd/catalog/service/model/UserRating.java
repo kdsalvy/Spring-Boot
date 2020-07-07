@@ -1,4 +1,4 @@
-package learn.kd.catalog.service.dto;
+package learn.kd.catalog.service.model;
 
 import java.util.List;
 

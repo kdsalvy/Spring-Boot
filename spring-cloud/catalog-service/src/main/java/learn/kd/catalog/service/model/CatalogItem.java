@@ -1,15 +1,15 @@
-package learn.kd.catalog.service.dto;
+package learn.kd.catalog.service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Rating {
+@NoArgsConstructor
+public class CatalogItem {
 
-    private String movieId;
+    private String movieName;
+    private String description;
     private Integer rating;
-
 }

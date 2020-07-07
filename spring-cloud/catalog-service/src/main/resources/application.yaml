@@ -1,4 +1,8 @@
 spring:
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
   application:
     name: catalog-service
     config:
@@ -6,23 +10,27 @@ spring:
      
 movie-info-service:
   ribbon:
-    eureka:
-      enabled: true
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule
+    NFLoadBalancerPingClassName: com.netflix.niws.loadbalancer.NIWSDiscoveryPing
     ServerListRefreshInterval: 1000
     MaxAutoRetries: 5
     MaxAutoRetriesNextServer: 0
-    retryableStatusCodes: 503, 502, 500
+    retryableStatusCodes: 503, 502, 500, 404
     OkToRetryOnAllOperations: true
+    ConnectTimeout: 3000
+    ReadTimeout: 3000
     
 ratings-data-service:
   ribbon:
-    eureka:
-      enabled: true
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule
+    NFLoadBalancerPingClassName: com.netflix.niws.loadbalancer.NIWSDiscoveryPing
     ServerListRefreshInterval: 1000
     MaxAutoRetries: 5
-    MaxAutoRetriesNextServer: 2
-    retryableStatusCodes: 503, 502, 500
+    MaxAutoRetriesNextServer: 1
+    retryableStatusCodes: 503, 502, 500, 404
     OkToRetryOnAllOperations: true
+    ConnectTimeout: 3000
+    ReadTimeout: 3000
 
 management:
   endpoints:
@@ -30,12 +38,34 @@ management:
       exposure:
         include: "*"
 
+feign:
+  client:
+    config:
+      movie-info-service:
+        connectTimeout: 1000
+        readTimeout: 1000
+        loggerLevel: FULL
+        errorDecoder: learn.kd.catalog.config.feign.CustomFeignErrorDecoder
+        retryer: learn.kd.catalog.config.CustomFeignRetryer
+        requestInterceptors:
+          - learn.kd.catalog.interceptor.RestCallInfoIntercepter
+#         decode404: false
+#         encoder: com.example.SimpleEncoder
+#         decoder: com.example.SimpleDecoder
+#         contract: com.example.SimpleContract
+        
+ribbon:
+  eureka:
+    enabled: true
+  eager-load:
+    enabled: true
+
 eureka:
   instance:
     leaseRenewalIntervalInSeconds: 30
     leaseExpirationDurationInSeconds: 30
   client:
     healthcheck:
-      enabled: false
+      enabled: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://localhost:8761/eureka

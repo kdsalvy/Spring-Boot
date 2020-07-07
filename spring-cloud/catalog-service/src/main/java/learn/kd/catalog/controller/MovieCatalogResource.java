@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import learn.kd.catalog.service.MovieInfo;
+import learn.kd.catalog.service.CatalogInfo;
 import learn.kd.catalog.service.UserRatingInfo;
-import learn.kd.catalog.service.dto.CatalogItem;
-import learn.kd.catalog.service.dto.UserRating;
+import learn.kd.catalog.service.model.CatalogItem;
+import learn.kd.catalog.service.model.UserRating;
 
 @RestController
 @RequestMapping("catalog")
 public class MovieCatalogResource {
 
     @Autowired
-    private MovieInfo movieInfo;
+    private CatalogInfo catalogInfo;
 
     @Autowired
     private UserRatingInfo userRatingInfo;
@@ -32,13 +32,13 @@ public class MovieCatalogResource {
 
         return userRating.getRatings()
             .stream()
-            .map(rating -> movieInfo.getCatalogItem(rating))
+            .map(rating -> catalogInfo.getCatalogItem(rating))
             .collect(Collectors.toList());
     }
     
     @GetMapping(path = "demo-error")
     public void checkRetryMechanism() {
-        movieInfo.callErrorUri();
+        catalogInfo.callErrorUri();
     }
 
 }
