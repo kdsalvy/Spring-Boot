@@ -1,13 +1,17 @@
 package learn.kd.catalog.config.feign;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import feign.Response;
 import feign.RetryableException;
 import feign.codec.ErrorDecoder;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Component
+@NoArgsConstructor
 public class CustomFeignErrorDecoder implements ErrorDecoder {
 
     private final ErrorDecoder defaultErrorDecoder = new Default();

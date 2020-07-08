@@ -41,17 +41,17 @@ management:
 feign:
   client:
     config:
-      movie-info-service:
+      default:
         connectTimeout: 1000
         readTimeout: 1000
         loggerLevel: FULL
         errorDecoder: learn.kd.catalog.config.feign.CustomFeignErrorDecoder
-        retryer: learn.kd.catalog.config.CustomFeignRetryer
+        retryer: learn.kd.catalog.config.feign.CustomFeignRetryer
         requestInterceptors:
           - learn.kd.catalog.interceptor.RestCallInfoIntercepter
-#         decode404: false
-#         encoder: com.example.SimpleEncoder
-#         decoder: com.example.SimpleDecoder
+        decode404: true
+        encoder: learn.kd.catalog.config.feign.CustomFeignEncoder
+        decoder: learn.kd.catalog.config.feign.CustomFeignDecoder
 #         contract: com.example.SimpleContract
         
 ribbon:

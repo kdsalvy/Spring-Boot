@@ -1,4 +1,4 @@
-package learn.kd.catalog.config;
+package learn.kd.catalog.config.feign;
 
 import org.springframework.stereotype.Component;
 
@@ -41,7 +41,7 @@ public class CustomFeignRetryer implements Retryer {
 
     @Override
     public Retryer clone() {
-        return new CustomFeignRetryer(6, 2000L);
+        return new CustomFeignRetryer(6, 200L);
     }
 
 }
