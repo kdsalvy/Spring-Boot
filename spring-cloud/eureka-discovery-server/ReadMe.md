@@ -1,3 +1,3 @@
-# Eureka Dicovery Server
+# Eureka Discovery Server
 
-Service Discovery Server implemented using Spring CLoud Eureka Module 
+Service Discovery Server implemented using Spring Cloud Eureka Module 
