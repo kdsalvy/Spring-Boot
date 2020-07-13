@@ -12,9 +12,16 @@ import feign.codec.Decoder;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Decoder is masking the response and the caller is always going to the fallback method.
+ * That is why this has been removed
+ * 
+ * @author saukedia1
+ *
+ */
 @Slf4j
 @NoArgsConstructor
-@Component
+//@Component
 public class CustomFeignDecoder implements Decoder {
     
     private final Decoder delegate = new Decoder.Default();

@@ -1,3 +1,7 @@
+server:
+  servlet:
+    context-path: /catalog-service
+
 spring:
   cloud:
     loadbalancer:
@@ -5,8 +9,6 @@ spring:
         enabled: true
   application:
     name: catalog-service
-    config:
-      uri: http://localhost:9000
      
 movie-info-service:
   ribbon:
@@ -51,7 +53,7 @@ feign:
           - learn.kd.catalog.interceptor.RestCallInfoIntercepter
         decode404: true
         encoder: learn.kd.catalog.config.feign.CustomFeignEncoder
-        decoder: learn.kd.catalog.config.feign.CustomFeignDecoder
+#         decoder: learn.kd.catalog.config.feign.CustomFeignDecoder # Error::Changing Response to always get from the fallback method
 #         contract: com.example.SimpleContract
         
 ribbon:

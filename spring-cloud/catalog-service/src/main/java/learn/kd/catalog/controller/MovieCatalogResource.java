@@ -16,7 +16,7 @@ import learn.kd.catalog.service.model.CatalogItem;
 import learn.kd.catalog.service.model.UserRating;
 
 @RestController
-@RequestMapping("catalog")
+@RequestMapping(path= "movie")
 public class MovieCatalogResource {
 
     @Autowired

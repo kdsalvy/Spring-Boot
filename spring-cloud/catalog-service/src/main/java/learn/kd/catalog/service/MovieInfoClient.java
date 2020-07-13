@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import learn.kd.catalog.service.model.Movie;
 
-@FeignClient("movie-info-service")
+@FeignClient(value = "movie-info-service")
 public interface MovieInfoClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/movies/{movieId}")

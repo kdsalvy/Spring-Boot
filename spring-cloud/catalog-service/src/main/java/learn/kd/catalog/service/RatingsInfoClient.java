@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import learn.kd.catalog.service.model.Rating;
 import learn.kd.catalog.service.model.UserRating;
 
-@FeignClient("ratings-data-service")
+@FeignClient(value = "ratings-data-service")
 public interface RatingsInfoClient {
 
     @RequestMapping("/ratings/{movieId}")

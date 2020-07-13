@@ -9,7 +9,17 @@ import org.springframework.retry.stats.DefaultStatisticsRepository;
 import org.springframework.retry.stats.StatisticsListener;
 import org.springframework.stereotype.Component;
 
-@Component
+/**
+ * Config to implement retry with Fixed backoff using Ribbon & Eureka.
+ * Couldn't get it working yet.
+ * 
+ * Including it as a bean interferes with feign retry, so removing it
+ * as a managed bean
+ * 
+ * @author saukedia1
+ *
+ */
+//@Component
 public class BackOffRetryConfig extends RibbonLoadBalancedRetryFactory {
 
     public BackOffRetryConfig(SpringClientFactory clientFactory) {
