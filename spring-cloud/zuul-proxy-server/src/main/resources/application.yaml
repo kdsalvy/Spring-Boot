@@ -1,0 +1,10 @@
+server:
+  port: 9001
+  application:
+    name: api-gateway
+    
+zuul:
+  routes:
+    catalog-service:
+      path: /api/catalog-service/**
+      url: http://localhost:8081/catalog-service
