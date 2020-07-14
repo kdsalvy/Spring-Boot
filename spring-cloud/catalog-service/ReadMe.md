@@ -9,6 +9,7 @@ Sample Project to Understand the concepts of Spring Cloud Modules
 * RoundRobin load balancing has been implemented using Ribbon module
 * Feign Client Integration for calling movie-info-service and ratings-data-service in a declarative way.
 * Retry using Feign Client (Commented Ribbon BackOffRetry Bean, doesn't work otherwise)
+* Included Sleuth and Zipkin dependency for distributed tracing
 
 ## Work In Progress Concepts
 * Retry and BackOff strategies using Ribbon and Spring Retry (Not Working)

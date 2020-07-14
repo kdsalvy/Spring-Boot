@@ -1,4 +1,6 @@
-spring:  
+spring:
+  application:
+    name: catalog-service  
   cloud:
     config:
       discovery:
