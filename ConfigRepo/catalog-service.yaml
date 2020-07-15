@@ -5,3 +5,7 @@ server:
 spring:
   application:
     name: catalog-service
+    
+logging:
+  root:
+    level: INFO

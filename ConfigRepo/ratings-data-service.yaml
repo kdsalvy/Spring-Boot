@@ -5,3 +5,8 @@ server:
 spring:
   application:
     name: ratings-data-service
+
+    
+logging:
+  root:
+    level: INFO

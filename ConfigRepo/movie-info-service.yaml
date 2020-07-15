@@ -4,3 +4,7 @@ server:
 spring:
   application:
     name: movie-info-service
+    
+logging:
+  root:
+    level: INFO
