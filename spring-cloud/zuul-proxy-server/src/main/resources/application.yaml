@@ -7,4 +7,10 @@ zuul:
   routes:
     catalog-service:
       path: /api/catalog-service/**
-      url: http://localhost:8081/catalog-service
+      serviceId: catalog-service
+      
+      
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true

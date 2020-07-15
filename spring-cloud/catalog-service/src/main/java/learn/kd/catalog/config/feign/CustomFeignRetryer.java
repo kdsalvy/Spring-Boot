@@ -17,10 +17,13 @@ public class CustomFeignRetryer implements Retryer {
     private long retryInterval;
 
     private int attempt = 1;
+    
+    private int retryIntervalMultiplier;
 
-    public CustomFeignRetryer(int retryMaxAttempt, Long retryInterval) {
+    public CustomFeignRetryer(int retryMaxAttempt, Long retryInterval, int retryIntervalMultiplier) {
         this.retryMaxAttempt = retryMaxAttempt;
         this.retryInterval = retryInterval;
+        this.retryIntervalMultiplier = retryIntervalMultiplier;
     }
 
     @Override
@@ -31,6 +34,7 @@ public class CustomFeignRetryer implements Retryer {
             throw e;
         }
         try {
+            retryInterval *= retryIntervalMultiplier;
             Thread.sleep(retryInterval);
         } catch (InterruptedException ignored) {
             Thread.currentThread()
@@ -41,7 +45,7 @@ public class CustomFeignRetryer implements Retryer {
 
     @Override
     public Retryer clone() {
-        return new CustomFeignRetryer(6, 200L);
+        return new CustomFeignRetryer(6, 2000L, 2);
     }
 
 }
