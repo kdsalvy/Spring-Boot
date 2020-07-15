@@ -8,4 +8,4 @@ spring:
     
 logging:
   root:
-    level: INFO
+    level: DEBUG
