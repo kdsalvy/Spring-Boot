@@ -12,11 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class LoggingFilter extends ZuulFilter {
+public class RequestLoggingFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        // applying filter for all requests
         return true;
     }
 

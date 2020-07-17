@@ -1,5 +1,23 @@
 spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:9002
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   cloud:
+    config:
+      discovery:
+        serviceId: config-server
+        enabled: true
+      uri: http://config-server
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
     loadbalancer:
       retry:
         enabled: true
@@ -46,7 +64,7 @@ feign:
         errorDecoder: learn.kd.catalog.config.feign.CustomFeignErrorDecoder
         retryer: learn.kd.catalog.config.feign.CustomFeignRetryer
         requestInterceptors:
-          - learn.kd.catalog.interceptor.RestCallInfoIntercepter
+          - learn.kd.catalog.interceptor.RequestInfoIntercepter
         decode404: true
         encoder: learn.kd.catalog.config.feign.CustomFeignEncoder
 #         decoder: learn.kd.catalog.config.feign.CustomFeignDecoder # Error::Changing Response to always get from the fallback method
@@ -67,3 +85,4 @@ eureka:
       enabled: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+

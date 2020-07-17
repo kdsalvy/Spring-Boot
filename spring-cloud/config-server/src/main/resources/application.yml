@@ -1,7 +1,14 @@
 spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   application:
     name: config-server
   cloud:
+    bus:
+      enabled: true
     config:
       allowOverride: true
       overrideNone: true    
@@ -15,3 +22,9 @@ spring:
             
 server:
   port: 9000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

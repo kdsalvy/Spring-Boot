@@ -1,6 +1,31 @@
 spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:9002
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    config:
+      discovery:
+        serviceId: config-server
+        enabled: true
+      uri: http://config-server
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
   application:
     name: ratings-data-service
     
 server:
   port: 8083
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

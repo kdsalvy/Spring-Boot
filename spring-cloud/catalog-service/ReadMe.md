@@ -10,6 +10,7 @@ Sample Project to Understand the concepts of Spring Cloud Modules
 * Feign Client Integration for calling movie-info-service and ratings-data-service in a declarative way.
 * Retry using Feign Client (Commented Ribbon BackOffRetry Bean, doesn't work otherwise)
 * Included Sleuth and Zipkin dependency for distributed tracing
+* Spring Cloud Bus added to fetch configurations on git commit, automatically.
 
 ## Work In Progress Concepts
 * Retry and BackOff strategies using Ribbon and Spring Retry (Not Working)

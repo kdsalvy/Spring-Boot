@@ -3,7 +3,7 @@ package learn.kd.catalog.interceptor;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 
-public class RestCallInfoIntercepter implements RequestInterceptor {
+public class RequestInfoIntercepter implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate template) {
