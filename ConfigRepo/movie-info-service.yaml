@@ -7,4 +7,4 @@ spring:
     
 logging:
   root:
-    level: INFO
+    level: ERROR
