@@ -11,6 +11,7 @@ Sample Project to Understand the concepts of Spring Cloud Modules
 * Retry using Feign Client (Commented Ribbon BackOffRetry Bean, doesn't work otherwise)
 * Included Sleuth and Zipkin dependency for distributed tracing
 * Spring Cloud Bus added to fetch configurations on git commit, automatically.
+* Integrated Spring Boot Admin for service administration and monitoring.
 
 ## Work In Progress Concepts
 * Retry and BackOff strategies using Ribbon and Spring Retry (Not Working)
